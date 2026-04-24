@@ -34,11 +34,8 @@ app = Flask(__name__, static_folder="static")
 CORS(app)
 
 # قاعدة البيانات
-# قاعدة البيانات
-DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///local_dev.db")
-
-# تجاهل إعداد قاعدة البيانات الافتراضي في ملف .env إذا لم يتم تغييره (لضمان عمل SQLite)
-if DATABASE_URL == "postgresql://postgres:password@localhost:5432/smart_voice_db":
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL or DATABASE_URL == "postgresql://postgres:password@localhost:5432/smart_voice_db":
     DATABASE_URL = "sqlite:///local_dev.db"
 
 if DATABASE_URL.startswith("postgres://"):
@@ -46,6 +43,9 @@ if DATABASE_URL.startswith("postgres://"):
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+
+with app.app_context():
+    db.create_all()
 
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 RESTAURANT_NAME = os.environ.get("RESTAURANT_NAME", "مطعم الزيتون الذهبي")
@@ -415,6 +415,5 @@ def get_stats():
 
 if __name__ == "__main__":
     with app.app_context():
-        db.create_all()
         logger.info(f"🚀 {RESTAURANT_NAME} — السيرفر يعمل على http://0.0.0.0:5000")
     app.run(host="0.0.0.0", port=5000, debug=False)
