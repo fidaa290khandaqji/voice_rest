@@ -44,9 +44,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
-with app.app_context():
-    db.create_all()
-
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 RESTAURANT_NAME = os.environ.get("RESTAURANT_NAME", "مطعم الزيتون الذهبي")
 
@@ -159,6 +156,9 @@ class Order(db.Model):
             "updated_at": self.updated_at.isoformat(),
             "notes": self.notes
         }
+
+with app.app_context():
+    db.create_all()
 
 
 # ══════════════════════════════════════════════════════════════
