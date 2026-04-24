@@ -1,0 +1,17 @@
+# لا ترفع هذه الملفات على GitHub!
+.env
+.env.local
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+venv/
+.vscode/
+.idea/
+static/audio/
+app.log
+orders.json
+*.sqlite3
+*.db
+.env.production

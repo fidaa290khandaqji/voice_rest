@@ -1,0 +1,10 @@
+# لا ترفع هذه الملفات على GitHub أبداً!
+.env
+static/audio/
+orders.json
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+venv/
+*.egg-info/

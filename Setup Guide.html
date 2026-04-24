@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل الإعداد — SMART VOICE RECEPTION AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Tajawal',sans-serif;direction:rtl;background:#f4f6fb;color:#1a1d2e;line-height:1.7;}
+h1,h2,h3,.heading{font-family:'Cairo',sans-serif;}
+code,pre{font-family:'JetBrains Mono',monospace;direction:ltr;text-align:left;}
+
+/* Layout */
+.sidebar{position:fixed;right:0;top:0;bottom:0;width:260px;background:#fff;border-left:1px solid #e8eaf0;padding:24px 0;overflow-y:auto;z-index:100;box-shadow:-2px 0 12px rgba(0,0,0,.05);}
+.main{margin-right:260px;padding:40px 48px;max-width:960px;}
+
+/* Logo bar */
+.logo-bar{padding:0 20px 20px;border-bottom:1px solid #f0f0f8;margin-bottom:16px;display:flex;align-items:center;gap:10;}
+.logo-box{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#2196f3,#764ba2);display:flex;align-items:center;justify-content:center;}
+
+/* Nav */
+.nav-section{padding:8px 20px;font-size:10.5px;font-weight:700;color:#a0a5c0;letter-spacing:1px;text-transform:uppercase;margin-top:8px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 20px;font-size:13px;color:#52526e;cursor:pointer;transition:all .2s;text-decoration:none;border-right:3px solid transparent;}
+.nav-item:hover{background:#f4f6fb;color:#2196f3;}
+.nav-item.active{background:rgba(33,150,243,.08);color:#2196f3;border-right-color:#2196f3;font-weight:700;}
+.nav-item .step-num{width:20px;height:20px;border-radius:6px;background:#f0f0f8;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+.nav-item.active .step-num{background:#2196f3;color:#fff;}
+.nav-item.done .step-num{background:#00b96b;color:#fff;}
+
+/* Content */
+.section{padding:48px 0;border-bottom:1px solid #e8eaf0;}
+.section:last-child{border-bottom:none;}
+.section-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;}
+.step-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;font-family:'Cairo';flex-shrink:0;}
+.section h2{font-size:22px;font-weight:900;color:#1a1d2e;margin-bottom:4px;}
+.section .subtitle{font-size:13.5px;color:#7070a0;}
+
+/* Cards */
+.card{background:#fff;border-radius:14px;padding:20px 24px;border:1px solid #e8eaf0;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.05);}
+.card-title{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+
+/* Steps */
+.step{display:flex;gap:16px;margin-bottom:20px;}
+.step-dot{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2196f3,#764ba2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.step-body{flex:1;}
+.step-body strong{font-size:14px;color:#1a1d2e;display:block;margin-bottom:4px;}
+.step-body p{font-size:13px;color:#52526e;}
+.step-body a{color:#2196f3;font-weight:600;text-decoration:none;}
+.step-body a:hover{text-decoration:underline;}
+
+/* Code block */
+.code-block{background:#0d1117;border-radius:12px;overflow:hidden;margin:14px 0;}
+.code-header{background:#161b22;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;}
+.code-lang{font-size:11px;font-weight:600;color:#8b949e;letter-spacing:.5px;}
+.copy-btn{font-size:11px;color:#8b949e;background:none;border:1px solid #30363d;border-radius:6px;padding:3px 10px;cursor:pointer;font-family:'Tajawal';transition:all .2s;}
+.copy-btn:hover{background:#21262d;color:#e6edf3;}
+.copy-btn.copied{color:#00b96b;border-color:#00b96b;}
+pre{padding:20px 22px;overflow-x:auto;font-size:12.5px;line-height:1.7;color:#e6edf3;}
+.kw{color:#ff7b72;}
+.fn{color:#79c0ff;}
+.st{color:#a5d6ff;}
+.cm{color:#8b949e;font-style:italic;}
+.num{color:#79c0ff;}
+.var{color:#ffa657;}
+
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700;}
+.badge-blue{background:rgba(33,150,243,.1);color:#2196f3;}
+.badge-green{background:rgba(0,185,107,.1);color:#00b96b;}
+.badge-purple{background:rgba(118,75,162,.1);color:#764ba2;}
+.badge-orange{background:rgba(245,158,11,.1);color:#f59e0b;}
+.badge-red{background:rgba(239,68,68,.1);color:#ef4444;}
+
+/* Arch diagram */
+.arch{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;padding:28px 0;row-gap:16px;}
+.arch-node{background:#fff;border-radius:14px;padding:14px 16px;border:1.5px solid #e8eaf0;text-align:center;min-width:110px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.arch-node .icon{font-size:28px;margin-bottom:6px;}
+.arch-node .label{font-size:11.5px;font-weight:700;color:#1a1d2e;}
+.arch-node .sublabel{font-size:10px;color:#a0a5c0;}
+.arch-arrow{font-size:18px;color:#c0c5e0;padding:0 6px;flex-shrink:0;}
+
+/* Warning / info box */
+.info-box{border-radius:12px;padding:14px 18px;margin:14px 0;display:flex;gap:12px;align-items:flex-start;}
+.info-box .icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.info-box p{font-size:13px;line-height:1.65;}
+.info-blue{background:rgba(33,150,243,.07);border:1px solid rgba(33,150,243,.2);}
+.info-orange{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);}
+.info-green{background:rgba(0,185,107,.07);border:1px solid rgba(0,185,107,.2);}
+
+/* Cost table */
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0;}
+th{text-align:right;padding:10px 14px;background:#f4f6fb;color:#52526e;font-weight:700;font-size:12px;}
+td{padding:10px 14px;border-bottom:1px solid #f0f0f8;color:#1a1d2e;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fafbff;}
+
+/* Progress tracker */
+.progress-bar{height:6px;background:#e8eaf0;border-radius:3px;margin:20px 0;overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#2196f3,#764ba2);width:0;transition:width 1s ease;}
+
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main{margin-right:0;padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="logo-bar">
+    <div class="logo-box">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+        <rect x="12" y="6" width="8" height="14" rx="4" fill="white" opacity=".9"/>
+        <path d="M8 19c0 5.523 4.477 10 12 10s12-4.477 12-10" stroke="white" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity=".8"/>
+        <line x1="20" y1="29" x2="20" y2="34" stroke="white" strokeWidth="2.2" strokeLinecap="round" opacity=".8"/>
+        <circle cx="28" cy="9" r="5" fill="#f59e0b"/>
+      </svg>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:800;color:#1a1d2e;font-family:'Cairo'">SMART VOICE AI</div>
+      <div style="font-size:10px;color:#a0a5c0;">دليل الإعداد</div>
+    </div>
+  </div>
+
+  <div class="nav-section">نظرة عامة</div>
+  <a class="nav-item active" href="#arch">
+    <span class="step-num">🗺</span> معمارية النظام
+  </a>
+  <a class="nav-item" href="#costs">
+    <span class="step-num">💰</span> التكاليف
+  </a>
+
+  <div class="nav-section">خطوات الإعداد</div>
+  <a class="nav-item" href="#step1">
+    <span class="step-num">1</span> إعداد Twilio
+  </a>
+  <a class="nav-item" href="#step2">
+    <span class="step-num">2</span> OpenAI API
+  </a>
+  <a class="nav-item" href="#step3">
+    <span class="step-num">3</span> ElevenLabs TTS
+  </a>
+  <a class="nav-item" href="#step4">
+    <span class="step-num">4</span> كود السيرفر
+  </a>
+  <a class="nav-item" href="#step5">
+    <span class="step-num">5</span> ملف الإعدادات
+  </a>
+  <a class="nav-item" href="#step6">
+    <span class="step-num">6</span> النشر على Railway
+  </a>
+  <a class="nav-item" href="#step7">
+    <span class="step-num">7</span> الاختبار والتشغيل
+  </a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+  <div style="margin-bottom:40px;">
+    <div class="badge badge-blue" style="margin-bottom:12px;">📋 دليل تقني شامل</div>
+    <h1 class="heading" style="font-size:30px;font-weight:900;color:#1a1d2e;margin-bottom:8px;">خطوات الربط التقني الكامل</h1>
+    <p style="font-size:15px;color:#7070a0;">من الصفر حتى التشغيل الفعلي — زبون يتصل ونظام الذكاء الاصطناعي يرد بصوت</p>
+    <div class="progress-bar"><div class="progress-fill" style="width:15%"></div></div>
+  </div>
+
+  <!-- ARCH -->
+  <section class="section" id="arch">
+    <div class="section-header">
+      <div class="step-badge" style="background:rgba(33,150,243,.1);color:#2196f3;">🗺</div>
+      <div>
+        <h2>معمارية النظام الكاملة</h2>
+        <div class="subtitle">كيف تتدفق المكالمة من الزبون حتى الرد الصوتي</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="arch">
+        <div class="arch-node">
+          <div class="icon">📞</div>
+          <div class="label">الزبون</div>
+          <div class="sublabel">يتصل برقم الهاتف</div>
+        </div>
+        <div class="arch-arrow">←</div>
+        <div class="arch-node" style="border-color:#e84393;background:rgba(232,67,147,.03);">
+          <div class="icon">🔴</div>
+          <div class="label">Twilio</div>
+          <div class="sublabel">استقبال المكالمة</div>
+        </div>
+        <div class="arch-arrow">←</div>
+        <div class="arch-node" style="border-color:#2196f3;background:rgba(33,150,243,.03);">
+          <div class="icon">🎤</div>
+          <div class="label">Whisper API</div>
+          <div class="sublabel">صوت → نص</div>
+        </div>
+        <div class="arch-arrow">←</div>
+        <div class="arch-node" style="border-color:#764ba2;background:rgba(118,75,162,.03);">
+          <div class="icon">🧠</div>
+          <div class="label">GPT-4</div>
+          <div class="sublabel">فهم + رد ذكي</div>
+        </div>
+        <div class="arch-arrow">←</div>
+        <div class="arch-node" style="border-color:#00b96b;background:rgba(0,185,107,.03);">
+          <div class="icon">🔊</div>
+          <div class="label">ElevenLabs</div>
+          <div class="sublabel">نص → صوت</div>
+        </div>
+        <div class="arch-arrow">←</div>
+        <div class="arch-node" style="border-color:#f59e0b;background:rgba(245,158,11,.03);">
+          <div class="icon">📱</div>
+          <div class="label">الزبون يسمع</div>
+          <div class="sublabel">رد صوتي ذكي</div>
+        </div>
+      </div>
+      <div class="info-box info-blue">
+        <div class="icon">ℹ️</div>
+        <p>كل هذا يحدث خلال <strong>2-3 ثواني</strong> فقط من لحظة كلام الزبون حتى سماع الرد</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COSTS -->
+  <section class="section" id="costs">
+    <div class="section-header">
+      <div class="step-badge" style="background:rgba(0,185,107,.1);color:#00b96b;">💰</div>
+      <div>
+        <h2>التكاليف التقريبية</h2>
+        <div class="subtitle">تقدير شهري لمطعم متوسط (200 مكالمة/شهر)</div>
+      </div>
+    </div>
+    <div class="card">
+      <table>
+        <tr>
+          <th>الخدمة</th>
+          <th>الاستخدام</th>
+          <th>التكلفة التقريبية</th>
+          <th>ملاحظة</th>
+        </tr>
+        <tr>
+          <td><strong>Twilio</strong></td>
+          <td>رقم هاتف + 200 مكالمة</td>
+          <td><span class="badge badge-green">~$15/شهر</span></td>
+          <td>يعتمد على المنطقة</td>
+        </tr>
+        <tr>
+          <td><strong>OpenAI Whisper</strong></td>
+          <td>200 دقيقة صوت</td>
+          <td><span class="badge badge-blue">~$0.50/شهر</span></td>
+          <td>$0.006/دقيقة</td>
+        </tr>
+        <tr>
+          <td><strong>OpenAI GPT-4o</strong></td>
+          <td>200 محادثة</td>
+          <td><span class="badge badge-blue">~$3/شهر</span></td>
+          <td>يعتمد على طول المحادثة</td>
+        </tr>
+        <tr>
+          <td><strong>ElevenLabs</strong></td>
+          <td>20,000 حرف</td>
+          <td><span class="badge badge-purple">$5/شهر</span></td>
+          <td>الخطة المجانية: 10k حرف</td>
+        </tr>
+        <tr>
+          <td><strong>Railway (سيرفر)</strong></td>
+          <td>تشغيل مستمر</td>
+          <td><span class="badge badge-orange">~$5/شهر</span></td>
+          <td>أو Render مجاني</td>
+        </tr>
+        <tr style="background:#f4f6fb;">
+          <td><strong>الإجمالي</strong></td>
+          <td></td>
+          <td><strong style="color:#00b96b;font-size:15px;">~$28-30/شهر</strong></td>
+          <td>أقل من 110₪/شهر</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- STEP 1: TWILIO -->
+  <section class="section" id="step1">
+    <div class="section-header">
+      <div class="step-badge" style="background:#fee;color:#e84393;font-size:16px;">1</div>
+      <div>
+        <h2>إعداد Twilio — استقبال المكالمات</h2>
+        <div class="subtitle">احصل على رقم هاتف يستقبل المكالمات ويوجهها للنظام</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <strong>إنشاء حساب Twilio</strong>
+          <p>روح على <a href="https://twilio.com" target="_blank">twilio.com</a> وسجّل حساب مجاني — تحصل على $15 رصيد مجاني للتجربة</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <strong>شراء رقم هاتف</strong>
+          <p>من Console → Phone Numbers → Buy a Number. اختر رقم يدعم Voice. التكلفة ~$1/شهر</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <strong>احفظ بيانات الـ API</strong>
+          <p>من Dashboard احفظ: <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;color:#2196f3">Account SID</code> و <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;color:#2196f3">Auth Token</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <strong>إعداد Webhook</strong>
+          <p>في إعدادات الرقم → Voice → Webhook URL: ضع رابط السيرفر الخاص بك (ستضيفه في الخطوة 6)</p>
+          <p style="margin-top:6px;">مثال: <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;color:#764ba2">https://your-app.railway.app/call</code></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: OPENAI -->
+  <section class="section" id="step2">
+    <div class="section-header">
+      <div class="step-badge" style="background:#f0f4ff;color:#2196f3;font-size:16px;">2</div>
+      <div>
+        <h2>OpenAI API — الذكاء الاصطناعي</h2>
+        <div class="subtitle">Whisper لتحويل الصوت، GPT-4 لفهم الطلب والرد</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <strong>إنشاء حساب OpenAI</strong>
+          <p>روح على <a href="https://platform.openai.com" target="_blank">platform.openai.com</a> وسجّل حساب</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <strong>إنشاء API Key</strong>
+          <p>API Keys → Create new secret key. احفظ المفتاح — لن يظهر مرة ثانية!</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <strong>شحن الرصيد</strong>
+          <p>Billing → Add payment method. ابدأ بـ $10 تكفيك لأشهر في البداية</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 3: ELEVENLABS -->
+  <section class="section" id="step3">
+    <div class="section-header">
+      <div class="step-badge" style="background:rgba(0,185,107,.1);color:#00b96b;font-size:16px;">3</div>
+      <div>
+        <h2>ElevenLabs — الصوت العربي</h2>
+        <div class="subtitle">تحويل ردود الذكاء الاصطناعي لصوت بشري طبيعي</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <strong>إنشاء حساب ElevenLabs</strong>
+          <p>روح على <a href="https://elevenlabs.io" target="_blank">elevenlabs.io</a> — الخطة المجانية تعطيك 10,000 حرف/شهر</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <strong>اختيار صوت عربي</strong>
+          <p>من Voice Library ابحث عن "Arabic" واختر صوتاً مناسباً. احفظ الـ Voice ID</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <strong>احصل على API Key</strong>
+          <p>Profile Settings → API Key. انسخه واحفظه</p>
+        </div>
+      </div>
+      <div class="info-box info-orange">
+        <div class="icon">💡</div>
+        <p>بديل مجاني: يمكن استخدام <strong>OpenAI TTS</strong> (أرخص وجودة ممتازة للعربية) بدل ElevenLabs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 4: CODE -->
+  <section class="section" id="step4">
+    <div class="section-header">
+      <div class="step-badge" style="background:#f0f4ff;color:#764ba2;font-size:16px;">4</div>
+      <div>
+        <h2>كود السيرفر الكامل (Python)</h2>
+        <div class="subtitle">ملف واحد يربط كل الخدمات معاً</div>
+      </div>
+    </div>
+
+    <div class="info-box info-blue" style="margin-bottom:16px;">
+      <div class="icon">📦</div>
+      <p>تحتاج Python 3.9+ مثبت. ثبّت المكتبات بـ: <code style="background:rgba(33,150,243,.1);padding:2px 8px;border-radius:5px;direction:ltr;display:inline-block">pip install flask twilio openai elevenlabs requests</code></p>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="code-block" style="margin:0;border-radius:14px;">
+        <div class="code-header">
+          <span class="code-lang">PYTHON — app.py</span>
+          <button class="copy-btn" onclick="copyCode(this,'code1')">نسخ الكود</button>
+        </div>
+        <pre id="code1"><span class="cm"># ══════════════════════════════════════════════════
+# SMART VOICE RECEPTION AI — السيرفر الرئيسي
+# ══════════════════════════════════════════════════</span>
+
+<span class="kw">import</span> os, tempfile, requests
+<span class="kw">from</span> flask <span class="kw">import</span> Flask, request, Response
+<span class="kw">from</span> twilio.twiml.voice_response <span class="kw">import</span> VoiceResponse, Gather
+<span class="kw">from</span> openai <span class="kw">import</span> OpenAI
+
+app = <span class="fn">Flask</span>(__name__)
+client = <span class="fn">OpenAI</span>(api_key=os.environ[<span class="st">"OPENAI_API_KEY"</span>])
+
+<span class="cm"># ── إعدادات المطعم ──────────────────────────────────</span>
+RESTAURANT_PROMPT = <span class="st">"""
+أنت مساعد صوتي ذكي لمطعم "الزيتون الذهبي".
+- تتحدث بالعربية فقط
+- أسلوبك ودود ومهذب
+- تستقبل طلبات التوصيل والاستفسارات
+- المنيو: شاورما 14₪، فلافل 8₪، مندي 35₪، برغر 20₪
+- التوصيل مجاني للطلبات فوق 30₪، وإلا 5₪
+- وقت التوصيل 45-60 دقيقة
+- إذا بدا الزبون مستاءً، أعطه خصم 10% تلقائياً
+- اسأل دائماً: الطلب، العنوان، رقم الهاتف
+"""</span>
+
+conversation_history = {}
+
+<span class="cm"># ── استقبال المكالمة ────────────────────────────────</span>
+<span class="var">@app</span>.route(<span class="st">"/call"</span>, methods=[<span class="st">"POST"</span>])
+<span class="kw">def</span> <span class="fn">handle_call</span>():
+    call_sid = request.form.get(<span class="st">"CallSid"</span>)
+    conversation_history[call_sid] = []
+    
+    resp = <span class="fn">VoiceResponse</span>()
+    gather = <span class="fn">Gather</span>(
+        input=<span class="st">"speech"</span>,
+        action=<span class="st">"/process"</span>,
+        language=<span class="st">"ar-SA"</span>,
+        speech_timeout=<span class="st">"auto"</span>,
+        enhanced=<span class="st">"true"</span>
+    )
+    <span class="cm"># ترحيب أولي</span>
+    audio_url = <span class="fn">text_to_speech</span>(<span class="st">"أهلاً وسهلاً، مطعم الزيتون الذهبي. كيف أقدر أساعدك؟"</span>)
+    gather.play(audio_url)
+    resp.append(gather)
+    <span class="kw">return</span> <span class="fn">Response</span>(str(resp), mimetype=<span class="st">"text/xml"</span>)
+
+<span class="cm"># ── معالجة كلام الزبون ──────────────────────────────</span>
+<span class="var">@app</span>.route(<span class="st">"/process"</span>, methods=[<span class="st">"POST"</span>])
+<span class="kw">def</span> <span class="fn">process_speech</span>():
+    call_sid = request.form.get(<span class="st">"CallSid"</span>)
+    speech_text = request.form.get(<span class="st">"SpeechResult"</span>, <span class="st">""</span>)
+    
+    <span class="kw">if not</span> speech_text:
+        <span class="kw">return</span> <span class="fn">repeat_gather</span>(<span class="st">"لم أفهم، ممكن تعيد؟"</span>)
+    
+    <span class="cm"># أضف كلام الزبون للتاريخ</span>
+    history = conversation_history.get(call_sid, [])
+    history.append({<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: speech_text})
+    
+    <span class="cm"># احصل على رد GPT-4</span>
+    ai_response = <span class="fn">get_ai_response</span>(history)
+    history.append({<span class="st">"role"</span>: <span class="st">"assistant"</span>, <span class="st">"content"</span>: ai_response})
+    conversation_history[call_sid] = history
+    
+    <span class="cm"># حوّل الرد لصوت وشغّله</span>
+    audio_url = <span class="fn">text_to_speech</span>(ai_response)
+    resp = <span class="fn">VoiceResponse</span>()
+    
+    <span class="cm"># إذا انتهى الطلب</span>
+    <span class="kw">if</span> <span class="st">"شكراً"</span> <span class="kw">in</span> ai_response <span class="kw">or</span> <span class="st">"مع السلامة"</span> <span class="kw">in</span> ai_response:
+        resp.play(audio_url)
+        resp.hangup()
+    <span class="kw">else</span>:
+        gather = <span class="fn">Gather</span>(input=<span class="st">"speech"</span>, action=<span class="st">"/process"</span>,
+                         language=<span class="st">"ar-SA"</span>, speech_timeout=<span class="st">"auto"</span>)
+        gather.play(audio_url)
+        resp.append(gather)
+    
+    <span class="kw">return</span> <span class="fn">Response</span>(str(resp), mimetype=<span class="st">"text/xml"</span>)
+
+<span class="cm"># ── GPT-4 ────────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">get_ai_response</span>(history):
+    messages = [{<span class="st">"role"</span>: <span class="st">"system"</span>, <span class="st">"content"</span>: RESTAURANT_PROMPT}] + history
+    response = client.chat.completions.<span class="fn">create</span>(
+        model=<span class="st">"gpt-4o"</span>,
+        messages=messages,
+        max_tokens=<span class="num">200</span>,
+        temperature=<span class="num">0.7</span>
+    )
+    <span class="kw">return</span> response.choices[<span class="num">0</span>].message.content
+
+<span class="cm"># ── ElevenLabs TTS ──────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">text_to_speech</span>(text):
+    VOICE_ID = os.environ.get(<span class="st">"ELEVENLABS_VOICE_ID"</span>, <span class="st">"YOUR_VOICE_ID"</span>)
+    API_KEY  = os.environ[<span class="st">"ELEVENLABS_API_KEY"</span>]
+    
+    response = requests.<span class="fn">post</span>(
+        f<span class="st">"https://api.elevenlabs.io/v1/text-to-speech/{VOICE_ID}"</span>,
+        headers={<span class="st">"xi-api-key"</span>: API_KEY, <span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>},
+        json={
+            <span class="st">"text"</span>: text,
+            <span class="st">"model_id"</span>: <span class="st">"eleven_multilingual_v2"</span>,
+            <span class="st">"voice_settings"</span>: {<span class="st">"stability"</span>: <span class="num">0.5</span>, <span class="st">"similarity_boost"</span>: <span class="num">0.8</span>}
+        }
+    )
+    <span class="cm"># احفظ الملف الصوتي مؤقتاً وارجع رابطه</span>
+    tmp = tempfile.<span class="fn">NamedTemporaryFile</span>(delete=<span class="kw">False</span>, suffix=<span class="st">".mp3"</span>, dir=<span class="st">"static"</span>)
+    tmp.<span class="fn">write</span>(response.content)
+    tmp.<span class="fn">close</span>()
+    base_url = os.environ.get(<span class="st">"BASE_URL"</span>, <span class="st">"http://localhost:5000"</span>)
+    <span class="kw">return</span> f<span class="st">"{base_url}/static/{os.path.basename(tmp.name)}"</span>
+
+<span class="kw">def</span> <span class="fn">repeat_gather</span>(msg):
+    audio_url = <span class="fn">text_to_speech</span>(msg)
+    resp = <span class="fn">VoiceResponse</span>()
+    gather = <span class="fn">Gather</span>(input=<span class="st">"speech"</span>, action=<span class="st">"/process"</span>, language=<span class="st">"ar-SA"</span>)
+    gather.<span class="fn">play</span>(audio_url)
+    resp.<span class="fn">append</span>(gather)
+    <span class="kw">return</span> <span class="fn">Response</span>(str(resp), mimetype=<span class="st">"text/xml"</span>)
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    os.<span class="fn">makedirs</span>(<span class="st">"static"</span>, exist_ok=<span class="kw">True</span>)
+    app.<span class="fn">run</span>(host=<span class="st">"0.0.0.0"</span>, port=<span class="num">5000</span>, debug=<span class="kw">False</span>)</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: ENV FILE -->
+  <section class="section" id="step5">
+    <div class="section-header">
+      <div class="step-badge" style="background:rgba(245,158,11,.1);color:#f59e0b;font-size:16px;">5</div>
+      <div>
+        <h2>ملف الإعدادات (.env)</h2>
+        <div class="subtitle">ضع مفاتيح الـ API الخاصة بك هنا</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div class="code-block" style="margin:0;border-radius:14px;">
+        <div class="code-header">
+          <span class="code-lang">ENV FILE — .env</span>
+          <button class="copy-btn" onclick="copyCode(this,'code2')">نسخ</button>
+        </div>
+        <pre id="code2"><span class="cm"># ── OpenAI ──────────────────────────────────────</span>
+<span class="var">OPENAI_API_KEY</span>=sk-proj-xxxxxxxxxxxxxxxxxxxxxxxx
+
+<span class="cm"># ── ElevenLabs ──────────────────────────────────</span>
+<span class="var">ELEVENLABS_API_KEY</span>=xxxxxxxxxxxxxxxxxxxxxxxx
+<span class="var">ELEVENLABS_VOICE_ID</span>=xxxxxxxxxxxxxxxxxxx
+
+<span class="cm"># ── Twilio ──────────────────────────────────────</span>
+<span class="var">TWILIO_ACCOUNT_SID</span>=ACxxxxxxxxxxxxxxxxxxxxxxxx
+<span class="var">TWILIO_AUTH_TOKEN</span>=xxxxxxxxxxxxxxxxxxxxxxxx
+<span class="var">TWILIO_PHONE_NUMBER</span>=+1XXXXXXXXXX
+
+<span class="cm"># ── السيرفر ──────────────────────────────────────</span>
+<span class="var">BASE_URL</span>=https://your-app.railway.app</pre>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-top:14px;">
+      <div class="code-block" style="margin:0;border-radius:14px;">
+        <div class="code-header">
+          <span class="code-lang">TEXT — requirements.txt</span>
+          <button class="copy-btn" onclick="copyCode(this,'code3')">نسخ</button>
+        </div>
+        <pre id="code3">flask==3.0.0
+twilio==9.0.0
+openai==1.35.0
+elevenlabs==1.2.0
+requests==2.31.0
+gunicorn==21.2.0</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 6: DEPLOY -->
+  <section class="section" id="step6">
+    <div class="section-header">
+      <div class="step-badge" style="background:rgba(118,75,162,.1);color:#764ba2;font-size:16px;">6</div>
+      <div>
+        <h2>النشر على Railway (أسهل طريقة)</h2>
+        <div class="subtitle">سيرفر دائم التشغيل بـ ~$5/شهر</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="step">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <strong>ارفع الكود على GitHub</strong>
+          <p>أنشئ Repo جديد على <a href="https://github.com" target="_blank">github.com</a> وارفع الملفات: <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;">app.py</code> و <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;">requirements.txt</code> و <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;">.env</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <strong>أنشئ مشروع على Railway</strong>
+          <p>روح على <a href="https://railway.app" target="_blank">railway.app</a> → New Project → Deploy from GitHub → اختر الـ Repo</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <strong>أضف متغيرات البيئة</strong>
+          <p>Variables → أضف كل مفاتيح الـ API من ملف .env واحداً واحداً</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <strong>احصل على رابط السيرفر</strong>
+          <p>Settings → Generate Domain → ستحصل على رابط مثل <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;color:#764ba2">https://smart-voice.railway.app</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">5</div>
+        <div class="step-body">
+          <strong>ربط Twilio بالسيرفر</strong>
+          <p>روح لـ Twilio → Phone Numbers → رقمك → Voice Webhook: <code style="background:#f4f6fb;padding:2px 7px;border-radius:5px;color:#2196f3">https://smart-voice.railway.app/call</code></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 7: TEST -->
+  <section class="section" id="step7">
+    <div class="section-header">
+      <div class="step-badge" style="background:rgba(0,185,107,.1);color:#00b96b;font-size:16px;">7</div>
+      <div>
+        <h2>الاختبار والتشغيل ✅</h2>
+        <div class="subtitle">تأكد إن كل شيء يعمل قبل إعطاء الرقم للزبائن</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="step">
+        <div class="step-dot">✓</div>
+        <div class="step-body">
+          <strong>تشغيل محلي أولاً (للتطوير)</strong>
+          <div class="code-block" style="margin:8px 0;">
+            <pre style="padding:12px 16px;font-size:12px;"><span class="cm"># في Terminal</span>
+<span class="kw">pip install</span> -r requirements.txt
+<span class="kw">python</span> app.py
+
+<span class="cm"># في Terminal ثاني — اكشف السيرفر للإنترنت</span>
+<span class="kw">ngrok http</span> 5000
+<span class="cm"># انسخ الرابط وضعه في Twilio للتجربة</span></pre>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-dot">✓</div>
+        <div class="step-body">
+          <strong>اتصل على الرقم وجرّب</strong>
+          <p>اتصل على رقم Twilio من هاتفك، قل "بدي أطلب شاورما" وانتظر الرد الصوتي 🎉</p>
+        </div>
+      </div>
+      <div class="info-box info-green">
+        <div class="icon">🎉</div>
+        <p><strong>تهانينا!</strong> إذا سمعت الرد الصوتي، نظامك يعمل بنجاح. الآن خصّص الـ RESTAURANT_PROMPT بمنيو مطعمك الحقيقي وأسعاره</p>
+      </div>
+    </div>
+
+    <!-- Quick checklist -->
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title" style="color:#2196f3;"><span>✅</span> قائمة التحقق النهائية</div>
+      <div id="checklist" style="display:flex;flex-direction:column;gap:10px;">
+        {['حساب Twilio + رقم هاتف','مفتاح OpenAI API + رصيد','مفتاح ElevenLabs + Voice ID','ملف app.py جاهز','ملف .env بكل المفاتيح','السيرفر منشور على Railway','Webhook مضبوط في Twilio'].map((item,i)=>`
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 12px;border-radius:9px;border:1px solid #e8eaf0;font-size:13.5px;color:#1a1d2e;" onclick="this.style.background=this.style.background?'':'rgba(0,185,107,.06)';this.querySelector('input').checked=!this.querySelector('input').checked;">
+          <input type="checkbox" style="accent-color:#00b96b;width:16px;height:16px;"> ${item}
+        </label>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <div style="text-align:center;padding:40px 0;color:#a0a5c0;font-size:13px;">
+    SMART VOICE RECEPTION AI — دليل الإعداد الكامل · 2026
+  </div>
+</main>
+
+<script>
+// Smooth scroll for nav
+document.querySelectorAll('.nav-item').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+    document.querySelectorAll('.nav-item').forEach(l=>l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+
+// Copy code
+function copyCode(btn, id) {
+  const code = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(code).then(()=>{
+    btn.textContent = '✓ تم النسخ';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='نسخ';btn.classList.remove('copied');},2000);
+  });
+}
+
+// Active section on scroll
+const sections = document.querySelectorAll('.section');
+const navItems = document.querySelectorAll('.nav-item[href^="#"]');
+window.addEventListener('scroll', ()=>{
+  let current='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100) current='#'+s.id;});
+  navItems.forEach(n=>{
+    n.classList.remove('active');
+    if(n.getAttribute('href')===current) n.classList.add('active');
+  });
+});
+
+// Checklist items from the template string
+document.getElementById('checklist').innerHTML = [
+  'حساب Twilio + رقم هاتف',
+  'مفتاح OpenAI API + رصيد',
+  'مفتاح ElevenLabs + Voice ID',
+  'ملف app.py جاهز',
+  'ملف .env بكل المفاتيح',
+  'السيرفر منشور على Railway',
+  'Webhook مضبوط في Twilio'
+].map(item=>`
+  <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:9px 13px;border-radius:9px;border:1px solid #e8eaf0;font-size:13.5px;color:#1a1d2e;transition:all .2s;" class="checklist-item">
+    <input type="checkbox" style="accent-color:#00b96b;width:16px;height:16px;"> ${item}
+  </label>`).join('');
+
+document.querySelectorAll('.checklist-item').forEach(el=>{
+  el.addEventListener('click',()=>{
+    const checked = el.querySelector('input').checked;
+    el.style.background = checked ? 'rgba(0,185,107,.07)' : '';
+    el.style.borderColor = checked ? 'rgba(0,185,107,.3)' : '#e8eaf0';
+  });
+});
+</script>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="80" fill="#f4f6fb"/>
+  <rect x="10" y="10" width="100" height="60" rx="8" fill="white"/>
+  <rect x="18" y="18" width="40" height="5" rx="2" fill="#2196f3" opacity=".7"/>
+  <rect x="18" y="27" width="84" height="3" rx="1.5" fill="#e8eaf0"/>
+  <rect x="18" y="33" width="60" height="3" rx="1.5" fill="#e8eaf0"/>
+  <rect x="18" y="42" width="84" height="14" rx="4" fill="#0d1117"/>
+  <rect x="23" y="46" width="50" height="2" rx="1" fill="#79c0ff" opacity=".7"/>
+  <rect x="23" y="51" width="35" height="2" rx="1" fill="#ff7b72" opacity=".7"/>
+</svg>
+</template>
+</body>
+</html>
